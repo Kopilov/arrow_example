@@ -1,18 +1,9 @@
 #include <iostream>
 
-#include <arrow/array.h>
-#include <arrow/builder.h>
 #include <arrow/io/api.h>
 #include <arrow/ipc/api.h>
 
-std::shared_ptr<arrow::Int64Builder> getInt64SequenceBuilder(long size) {
-    std::shared_ptr<arrow::Int64Builder> builder = std::make_shared<arrow::Int64Builder>();
-
-    for (long i = 0; i < size; i++) {
-        builder->Append(i);
-    }
-    return builder;
-}
+#include "vectorsExamples.h"
 
 void addExample(
     std::string name,
@@ -27,12 +18,14 @@ void addExample(
 }
 
 std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
-    long size = 1000;
+    long size = 100;
 
     std::vector<std::shared_ptr<arrow::Field>> fields;
     std::vector<std::shared_ptr<arrow::Array>> data;
 
-    addExample("longValues", size, getInt64SequenceBuilder, fields, data);
+    addExample("asciiString", size, getAsciiStringSequenceBuilder, fields, data);
+    addExample("utf8String", size, getUtf8StringSequenceBuilder, fields, data);
+    addExample("longInt", size, getInt64SequenceBuilder, fields, data);
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;
 }
