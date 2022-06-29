@@ -8,11 +8,11 @@
 void addExample(
     std::string name,
     long size,
-    std::function<std::shared_ptr<arrow::ArrayBuilder>(long)> prepareExampleBuilder,
+    std::function<arrow::Result<std::shared_ptr<arrow::ArrayBuilder>>(long)> prepareExampleBuilder,
     std::vector<std::shared_ptr<arrow::Field>> &fieldsExamples,
     std::vector<std::shared_ptr<arrow::Array>> &dataExamples
 ) {
-    std::shared_ptr<arrow::ArrayBuilder> builder = prepareExampleBuilder(size);
+    std::shared_ptr<arrow::ArrayBuilder> builder = prepareExampleBuilder(size).ValueOrDie();
     fieldsExamples.push_back(field(name, builder->type()));
     dataExamples.push_back(builder->Finish().ValueOrDie());
 }
@@ -25,14 +25,17 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
 
     addExample("asciiString", size, getAsciiStringSequenceBuilder, fields, data);
     addExample("utf8String", size, getUtf8StringSequenceBuilder, fields, data);
+    addExample("largeString", size, getLargeStringSequenceBuilder, fields, data);
+
     addExample("longInt", size, getInt64SequenceBuilder, fields, data);
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;
 }
 
 void writeAndClose(std::shared_ptr<arrow::ipc::RecordBatchWriter> writer, std::shared_ptr<arrow::RecordBatch> recordBatch) {
-    writer->WriteRecordBatch(*recordBatch);
-    writer->Close();
+    arrow::Status s = writer->WriteRecordBatch(*recordBatch);
+    s = writer->Close();
+
 }
 
 int main(int argc, char* argv[]) {
