@@ -2,6 +2,8 @@
 
 #include <arrow/builder.h>
 
+namespace dataframe_example {
+
 /*
  * Generate String (ASCII only) sequence builder
  */
@@ -21,3 +23,5 @@ arrow::Result<std::shared_ptr<arrow::LargeStringBuilder>> getLargeStringSequence
  * Generate Int64 (Long) sequence builder
  */
 arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long size);
+
+} //end dataframe_example

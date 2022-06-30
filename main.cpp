@@ -5,6 +5,9 @@
 
 #include "vectorsExamples.h"
 
+
+namespace dataframe_example {
+
 void addExample(
     std::string name,
     long size,
@@ -38,14 +41,16 @@ void writeAndClose(std::shared_ptr<arrow::ipc::RecordBatchWriter> writer, std::s
 
 }
 
+} //end dataframe_example
+
 int main(int argc, char* argv[]) {
-    std::shared_ptr<arrow::RecordBatch> recordBatch = createDemoRecordBatch();
+    std::shared_ptr<arrow::RecordBatch> recordBatch = dataframe_example::createDemoRecordBatch();
 
     std::shared_ptr<arrow::io::FileOutputStream> randomAccessOut = arrow::io::FileOutputStream::Open("testFeather.arrow").ValueOrDie();
-    writeAndClose(arrow::ipc::MakeFileWriter(randomAccessOut, recordBatch->schema()).ValueOrDie(), recordBatch);
+    dataframe_example::writeAndClose(arrow::ipc::MakeFileWriter(randomAccessOut, recordBatch->schema()).ValueOrDie(), recordBatch);
 
     std::shared_ptr<arrow::io::FileOutputStream> ipcStreamOut = arrow::io::FileOutputStream::Open("testIPC.arrow").ValueOrDie();
-    writeAndClose(arrow::ipc::MakeStreamWriter(ipcStreamOut, recordBatch->schema()).ValueOrDie(), recordBatch);
+    dataframe_example::writeAndClose(arrow::ipc::MakeStreamWriter(ipcStreamOut, recordBatch->schema()).ValueOrDie(), recordBatch);
 
     return 0;
 }

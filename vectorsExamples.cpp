@@ -2,6 +2,8 @@
 #include <arrow/result.h>
 #include "vectorsExamples.h"
 
+namespace dataframe_example {
+
 arrow::Result<std::shared_ptr<arrow::StringBuilder>> getAsciiStringSequenceBuilder(long size) {
     std::shared_ptr<arrow::StringBuilder> builder = std::make_shared<arrow::StringBuilder>();
     
@@ -43,3 +45,5 @@ arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long
     }
     return builder;
 }
+
+} //end dataframe_example
