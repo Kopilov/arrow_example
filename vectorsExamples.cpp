@@ -46,11 +46,74 @@ arrow::Result<std::shared_ptr<arrow::BooleanBuilder>> getBooleanSequenceBuilder(
     return builder;
 }
 
+arrow::Result<std::shared_ptr<arrow::Int8Builder>> getInt8SequenceBuilder(long size) {
+    std::shared_ptr<arrow::Int8Builder> builder = std::make_shared<arrow::Int8Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 10));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::Int16Builder>> getInt16SequenceBuilder(long size) {
+    std::shared_ptr<arrow::Int16Builder> builder = std::make_shared<arrow::Int16Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 1000));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::Int32Builder>> getInt32SequenceBuilder(long size) {
+    std::shared_ptr<arrow::Int32Builder> builder = std::make_shared<arrow::Int32Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 100000000L));
+    }
+    return builder;
+}
+
 arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long size) {
     std::shared_ptr<arrow::Int64Builder> builder = std::make_shared<arrow::Int64Builder>();
 
     for (long i = 0; i < size; i++) {
-        ARROW_RETURN_NOT_OK(builder->Append(i));
+        ARROW_RETURN_NOT_OK(builder->Append(i * 100000000000000000L));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::UInt8Builder>> getUInt8SequenceBuilder(long size) {
+    std::shared_ptr<arrow::UInt8Builder> builder = std::make_shared<arrow::UInt8Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 10));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::UInt16Builder>> getUInt16SequenceBuilder(long size) {
+    std::shared_ptr<arrow::UInt16Builder> builder = std::make_shared<arrow::UInt16Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 1000));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::UInt32Builder>> getUInt32SequenceBuilder(long size) {
+    std::shared_ptr<arrow::UInt32Builder> builder = std::make_shared<arrow::UInt32Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 100000000L));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::UInt64Builder>> getUInt64SequenceBuilder(long size) {
+    std::shared_ptr<arrow::UInt64Builder> builder = std::make_shared<arrow::UInt64Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 100000000000000000L));
     }
     return builder;
 }

@@ -32,7 +32,16 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
 
     addExample("boolean", size, getBooleanSequenceBuilder, fields, data);
 
+    addExample("byte", size, getInt8SequenceBuilder, fields, data);
+    addExample("short", size, getInt16SequenceBuilder, fields, data);
+    addExample("int", size, getInt32SequenceBuilder, fields, data);
     addExample("longInt", size, getInt64SequenceBuilder, fields, data);
+
+    addExample("unsigned_byte", size, getUInt8SequenceBuilder, fields, data);
+    addExample("unsigned_short", size, getUInt16SequenceBuilder, fields, data);
+    addExample("unsigned_int", size, getUInt32SequenceBuilder, fields, data);
+    addExample("unsigned_longInt", size, getUInt64SequenceBuilder, fields, data);
+
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;
 }

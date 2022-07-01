@@ -25,8 +25,43 @@ arrow::Result<std::shared_ptr<arrow::LargeStringBuilder>> getLargeStringSequence
 arrow::Result<std::shared_ptr<arrow::BooleanBuilder>> getBooleanSequenceBuilder(long size);
 
 /*
+ * Generate Int8 (Byte) sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Int8Builder>> getInt8SequenceBuilder(long size);
+
+/*
+ * Generate Int16 (Short) sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Int16Builder>> getInt16SequenceBuilder(long size);
+
+/*
+ * Generate Int32 (Int) sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Int32Builder>> getInt32SequenceBuilder(long size);
+
+/*
  * Generate Int64 (Long) sequence builder
  */
 arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long size);
+
+/*
+ * Generate UInt8 sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::UInt8Builder>> getUInt8SequenceBuilder(long size);
+
+/*
+ * Generate UInt16 sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::UInt16Builder>> getUInt16SequenceBuilder(long size);
+
+/*
+ * Generate UInt32 sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::UInt32Builder>> getUInt32SequenceBuilder(long size);
+
+/*
+ * Generate UInt64 sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::UInt64Builder>> getUInt64SequenceBuilder(long size);
 
 } //end dataframe_example
