@@ -37,6 +37,15 @@ arrow::Result<std::shared_ptr<arrow::LargeStringBuilder>> getLargeStringSequence
     return builder;
 }
 
+arrow::Result<std::shared_ptr<arrow::BooleanBuilder>> getBooleanSequenceBuilder(long size) {
+    std::shared_ptr<arrow::BooleanBuilder> builder = std::make_shared<arrow::BooleanBuilder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i % 2 == 0));
+    }
+    return builder;
+}
+
 arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long size) {
     std::shared_ptr<arrow::Int64Builder> builder = std::make_shared<arrow::Int64Builder>();
 

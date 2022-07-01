@@ -30,6 +30,8 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
     addExample("utf8String", size, getUtf8StringSequenceBuilder, fields, data);
     addExample("largeString", size, getLargeStringSequenceBuilder, fields, data);
 
+    addExample("boolean", size, getBooleanSequenceBuilder, fields, data);
+
     addExample("longInt", size, getInt64SequenceBuilder, fields, data);
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;

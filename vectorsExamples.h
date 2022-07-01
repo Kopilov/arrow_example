@@ -20,6 +20,11 @@ arrow::Result<std::shared_ptr<arrow::StringBuilder>> getUtf8StringSequenceBuilde
 arrow::Result<std::shared_ptr<arrow::LargeStringBuilder>> getLargeStringSequenceBuilder(long size);
 
 /*
+ * Generate Boolean sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::BooleanBuilder>> getBooleanSequenceBuilder(long size);
+
+/*
  * Generate Int64 (Long) sequence builder
  */
 arrow::Result<std::shared_ptr<arrow::Int64Builder>> getInt64SequenceBuilder(long size);
