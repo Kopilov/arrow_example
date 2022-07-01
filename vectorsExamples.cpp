@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cmath>
 #include <arrow/result.h>
 #include "vectorsExamples.h"
 
@@ -114,6 +115,33 @@ arrow::Result<std::shared_ptr<arrow::UInt64Builder>> getUInt64SequenceBuilder(lo
 
     for (long i = 0; i < size; i++) {
         ARROW_RETURN_NOT_OK(builder->Append(i * 100000000000000000L));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::HalfFloatBuilder>> getHalfFloatSequenceBuilder(long size) {
+    std::shared_ptr<arrow::HalfFloatBuilder> builder = std::make_shared<arrow::HalfFloatBuilder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(std::pow(2.0, (float)i)));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::FloatBuilder>> getFloatSequenceBuilder(long size) {
+    std::shared_ptr<arrow::FloatBuilder> builder = std::make_shared<arrow::FloatBuilder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(std::pow(2.0, (double)i)));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(long size) {
+    std::shared_ptr<arrow::DoubleBuilder> builder = std::make_shared<arrow::DoubleBuilder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(std::pow(2.0, (double)i)));
     }
     return builder;
 }

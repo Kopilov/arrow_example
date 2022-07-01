@@ -64,4 +64,10 @@ arrow::Result<std::shared_ptr<arrow::UInt32Builder>> getUInt32SequenceBuilder(lo
  */
 arrow::Result<std::shared_ptr<arrow::UInt64Builder>> getUInt64SequenceBuilder(long size);
 
+arrow::Result<std::shared_ptr<arrow::HalfFloatBuilder>> getHalfFloatSequenceBuilder(long size);
+
+arrow::Result<std::shared_ptr<arrow::FloatBuilder>> getFloatSequenceBuilder(long size);
+
+arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(long size);
+
 } //end dataframe_example

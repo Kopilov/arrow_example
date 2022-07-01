@@ -42,6 +42,10 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
     addExample("unsigned_int", size, getUInt32SequenceBuilder, fields, data);
     addExample("unsigned_longInt", size, getUInt64SequenceBuilder, fields, data);
 
+    addExample("halfFloat", size, getHalfFloatSequenceBuilder, fields, data);
+    addExample("float", size, getFloatSequenceBuilder, fields, data);
+    addExample("double", size, getDoubleSequenceBuilder, fields, data);
+
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;
 }
