@@ -146,6 +146,24 @@ arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(lo
     return builder;
 }
 
+arrow::Result<std::shared_ptr<arrow::Date32Builder>> getDate32SequenceBuilder(long size) {
+    std::shared_ptr<arrow::Date32Builder> builder = std::make_shared<arrow::Date32Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 30));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::Date64Builder>> getDate64SequenceBuilder(long size) {
+    std::shared_ptr<arrow::Date64Builder> builder = std::make_shared<arrow::Date64Builder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i * 1000 * 60 * 60 * 24 * 30));
+    }
+    return builder;
+}
+
 arrow::Result<std::shared_ptr<arrow::Time32Builder>> getTime32SequenceBuilder(long size, arrow::TimeUnit::type unit) {
     std::shared_ptr<arrow::Time32Builder> builder = std::make_shared<arrow::Time32Builder>(arrow::time32(unit), arrow::default_memory_pool());
 

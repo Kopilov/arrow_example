@@ -45,6 +45,9 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
     addExample("float", [size](){return getFloatSequenceBuilder(size);}, fields, data);
     addExample("double", [size](){return getDoubleSequenceBuilder(size);}, fields, data);
 
+    addExample("date32", [size](){return getDate32SequenceBuilder(size);}, fields, data);
+    addExample("date64", [size](){return getDate64SequenceBuilder(size);}, fields, data);
+
     addExample("time32_seconds", [size](){return getTime32SequenceBuilder(size, arrow::TimeUnit::SECOND);}, fields, data);
     addExample("time32_milli", [size](){return getTime32SequenceBuilder(size, arrow::TimeUnit::MILLI);}, fields, data);
 

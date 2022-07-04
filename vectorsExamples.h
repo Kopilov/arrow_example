@@ -72,6 +72,16 @@ arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(lo
 
 
 /*
+ * Generate Date32 (a number of days since UNIX epoch) sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Date32Builder>> getDate32SequenceBuilder(long size);
+
+/*
+ * Generate Date64 (a number of milliseconds since UNIX epoch) sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Date64Builder>> getDate64SequenceBuilder(long size);
+
+/*
  * Generate Time32<TimeUnit> sequence builder
  */
 arrow::Result<std::shared_ptr<arrow::Time32Builder>> getTime32SequenceBuilder(long size, arrow::TimeUnit::type unit);
