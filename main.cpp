@@ -10,12 +10,11 @@ namespace dataframe_example {
 
 void addExample(
     std::string name,
-    long size,
-    std::function<arrow::Result<std::shared_ptr<arrow::ArrayBuilder>>(long)> prepareExampleBuilder,
+    std::function<arrow::Result<std::shared_ptr<arrow::ArrayBuilder>>()> prepareExampleBuilder,
     std::vector<std::shared_ptr<arrow::Field>> &fieldsExamples,
     std::vector<std::shared_ptr<arrow::Array>> &dataExamples
 ) {
-    std::shared_ptr<arrow::ArrayBuilder> builder = prepareExampleBuilder(size).ValueOrDie();
+    std::shared_ptr<arrow::ArrayBuilder> builder = prepareExampleBuilder().ValueOrDie();
     fieldsExamples.push_back(field(name, builder->type()));
     dataExamples.push_back(builder->Finish().ValueOrDie());
 }
@@ -26,25 +25,31 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch() {
     std::vector<std::shared_ptr<arrow::Field>> fields;
     std::vector<std::shared_ptr<arrow::Array>> data;
 
-    addExample("asciiString", size, getAsciiStringSequenceBuilder, fields, data);
-    addExample("utf8String", size, getUtf8StringSequenceBuilder, fields, data);
-    addExample("largeString", size, getLargeStringSequenceBuilder, fields, data);
+    addExample("asciiString", [size](){return getAsciiStringSequenceBuilder(size);}, fields, data);
+    addExample("utf8String", [size](){return getUtf8StringSequenceBuilder(size);}, fields, data);
+    addExample("largeString", [size](){return getLargeStringSequenceBuilder(size);}, fields, data);
 
-    addExample("boolean", size, getBooleanSequenceBuilder, fields, data);
+    addExample("boolean", [size](){return getBooleanSequenceBuilder(size);}, fields, data);
 
-    addExample("byte", size, getInt8SequenceBuilder, fields, data);
-    addExample("short", size, getInt16SequenceBuilder, fields, data);
-    addExample("int", size, getInt32SequenceBuilder, fields, data);
-    addExample("longInt", size, getInt64SequenceBuilder, fields, data);
+    addExample("byte", [size](){return getInt8SequenceBuilder(size);}, fields, data);
+    addExample("short", [size](){return getInt16SequenceBuilder(size);}, fields, data);
+    addExample("int", [size](){return getInt32SequenceBuilder(size);}, fields, data);
+    addExample("longInt", [size](){return getInt64SequenceBuilder(size);}, fields, data);
 
-    addExample("unsigned_byte", size, getUInt8SequenceBuilder, fields, data);
-    addExample("unsigned_short", size, getUInt16SequenceBuilder, fields, data);
-    addExample("unsigned_int", size, getUInt32SequenceBuilder, fields, data);
-    addExample("unsigned_longInt", size, getUInt64SequenceBuilder, fields, data);
+    addExample("unsigned_byte", [size](){return getUInt8SequenceBuilder(size);}, fields, data);
+    addExample("unsigned_short", [size](){return getUInt16SequenceBuilder(size);}, fields, data);
+    addExample("unsigned_int", [size](){return getUInt32SequenceBuilder(size);}, fields, data);
+    addExample("unsigned_longInt", [size](){return getUInt64SequenceBuilder(size);}, fields, data);
 
-    addExample("halfFloat", size, getHalfFloatSequenceBuilder, fields, data);
-    addExample("float", size, getFloatSequenceBuilder, fields, data);
-    addExample("double", size, getDoubleSequenceBuilder, fields, data);
+    addExample("halfFloat", [size](){return getHalfFloatSequenceBuilder(size);}, fields, data);
+    addExample("float", [size](){return getFloatSequenceBuilder(size);}, fields, data);
+    addExample("double", [size](){return getDoubleSequenceBuilder(size);}, fields, data);
+
+    addExample("time32_seconds", [size](){return getTime32SequenceBuilder(size, arrow::TimeUnit::SECOND);}, fields, data);
+    addExample("time32_milli", [size](){return getTime32SequenceBuilder(size, arrow::TimeUnit::MILLI);}, fields, data);
+
+    addExample("time64_micro", [size](){return getTime64SequenceBuilder(size, arrow::TimeUnit::MICRO);}, fields, data);
+    addExample("time64_nano", [size](){return getTime64SequenceBuilder(size, arrow::TimeUnit::NANO);}, fields, data);
 
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;

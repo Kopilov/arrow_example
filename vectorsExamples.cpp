@@ -146,4 +146,22 @@ arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(lo
     return builder;
 }
 
+arrow::Result<std::shared_ptr<arrow::Time32Builder>> getTime32SequenceBuilder(long size, arrow::TimeUnit::type unit) {
+    std::shared_ptr<arrow::Time32Builder> builder = std::make_shared<arrow::Time32Builder>(arrow::time32(unit), arrow::default_memory_pool());
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i));
+    }
+    return builder;
+}
+
+arrow::Result<std::shared_ptr<arrow::Time64Builder>> getTime64SequenceBuilder(long size, arrow::TimeUnit::type unit) {
+    std::shared_ptr<arrow::Time64Builder> builder = std::make_shared<arrow::Time64Builder>(arrow::time64(unit), arrow::default_memory_pool());
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->Append(i));
+    }
+    return builder;
+}
+
 } //end dataframe_example

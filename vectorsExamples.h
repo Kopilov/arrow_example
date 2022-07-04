@@ -70,4 +70,15 @@ arrow::Result<std::shared_ptr<arrow::FloatBuilder>> getFloatSequenceBuilder(long
 
 arrow::Result<std::shared_ptr<arrow::DoubleBuilder>> getDoubleSequenceBuilder(long size);
 
+
+/*
+ * Generate Time32<TimeUnit> sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Time32Builder>> getTime32SequenceBuilder(long size, arrow::TimeUnit::type unit);
+
+/*
+ * Generate Time64<TimeUnit> sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::Time64Builder>> getTime64SequenceBuilder(long size, arrow::TimeUnit::type unit);
+    
 } //end dataframe_example
