@@ -40,7 +40,7 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch(long size) {
     addExample("unsigned_int", [size](){return getUInt32SequenceBuilder(size);}, fields, data);
     addExample("unsigned_longInt", [size](){return getUInt64SequenceBuilder(size);}, fields, data);
 
-    addExample("halfFloat", [size](){return getHalfFloatSequenceBuilder(size);}, fields, data);
+    //addExample("halfFloat", [size](){return getHalfFloatSequenceBuilder(size);}, fields, data);
     addExample("float", [size](){return getFloatSequenceBuilder(size);}, fields, data);
     addExample("double", [size](){return getDoubleSequenceBuilder(size);}, fields, data);
 
