@@ -61,13 +61,13 @@ arrow::Status writeAllExamples() {
     std::shared_ptr<arrow::RecordBatch> recordBatch1 = createDemoRecordBatch(100);
     std::shared_ptr<arrow::RecordBatch> recordBatch2 = createDemoRecordBatch(200);
 
-    std::shared_ptr<arrow::io::FileOutputStream> randomAccessOut = arrow::io::FileOutputStream::Open("testFeather.arrow").ValueOrDie();
+    std::shared_ptr<arrow::io::FileOutputStream> randomAccessOut = arrow::io::FileOutputStream::Open("test.arrow.feather").ValueOrDie();
     std::shared_ptr<arrow::ipc::RecordBatchWriter> randomAccessWriter = arrow::ipc::MakeFileWriter(randomAccessOut, recordBatch1->schema()).ValueOrDie();
     ARROW_RETURN_NOT_OK(randomAccessWriter->WriteRecordBatch(*recordBatch1));
     ARROW_RETURN_NOT_OK(randomAccessWriter->WriteRecordBatch(*recordBatch2));
     ARROW_RETURN_NOT_OK(randomAccessWriter->Close());
 
-    std::shared_ptr<arrow::io::FileOutputStream> ipcStreamOut = arrow::io::FileOutputStream::Open("testIPC.arrow").ValueOrDie();
+    std::shared_ptr<arrow::io::FileOutputStream> ipcStreamOut = arrow::io::FileOutputStream::Open("test.arrow.ipc").ValueOrDie();
     std::shared_ptr<arrow::ipc::RecordBatchWriter> ipcStreamWriter = arrow::ipc::MakeStreamWriter(ipcStreamOut, recordBatch1->schema()).ValueOrDie();
     ARROW_RETURN_NOT_OK(ipcStreamWriter->WriteRecordBatch(*recordBatch1));
     ARROW_RETURN_NOT_OK(ipcStreamWriter->WriteRecordBatch(*recordBatch2));
