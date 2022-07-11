@@ -125,10 +125,35 @@ arrow::Status writeExamplesWithNulls() {
     return arrow::Status::OK();
 }
 
+/**
+ * Create Feather and IPC files with two batches containing not nullable columns with some nulls.
+ * This is able (nullable has no bearing on the array, see https://arrow.apache.org/docs/format/Columnar.html#schema-message) but possibly incorrect.
+ */
+arrow::Status writeExamplesIllegal() {
+    std::shared_ptr<arrow::RecordBatch> recordBatch1 = createDemoRecordBatch(100, false, true);
+    std::shared_ptr<arrow::RecordBatch> recordBatch2 = createDemoRecordBatch(200, false, true);
+
+    std::shared_ptr<arrow::io::FileOutputStream> randomAccessOut = arrow::io::FileOutputStream::Open("test-illegal.arrow.feather").ValueOrDie();
+    std::shared_ptr<arrow::ipc::RecordBatchWriter> randomAccessWriter = arrow::ipc::MakeFileWriter(randomAccessOut, recordBatch1->schema()).ValueOrDie();
+    ARROW_RETURN_NOT_OK(randomAccessWriter->WriteRecordBatch(*recordBatch1));
+    ARROW_RETURN_NOT_OK(randomAccessWriter->WriteRecordBatch(*recordBatch2));
+    ARROW_RETURN_NOT_OK(randomAccessWriter->Close());
+
+    std::shared_ptr<arrow::io::FileOutputStream> ipcStreamOut = arrow::io::FileOutputStream::Open("test-illegal.arrow.ipc").ValueOrDie();
+    std::shared_ptr<arrow::ipc::RecordBatchWriter> ipcStreamWriter = arrow::ipc::MakeStreamWriter(ipcStreamOut, recordBatch1->schema()).ValueOrDie();
+    ARROW_RETURN_NOT_OK(ipcStreamWriter->WriteRecordBatch(*recordBatch1));
+    ARROW_RETURN_NOT_OK(ipcStreamWriter->WriteRecordBatch(*recordBatch2));
+    ARROW_RETURN_NOT_OK(ipcStreamWriter->Close());
+
+    return arrow::Status::OK();
+}
+
 arrow::Status writeAllExamples() {
     ARROW_RETURN_NOT_OK(writeExamplesBase());
     ARROW_RETURN_NOT_OK(writeExamplesNotNullable());
     ARROW_RETURN_NOT_OK(writeExamplesWithNulls());
+
+    ARROW_RETURN_NOT_OK(writeExamplesIllegal());
     return arrow::Status::OK();
 }
 
