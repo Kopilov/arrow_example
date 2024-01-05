@@ -4,4 +4,5 @@ Made for https://github.com/Kotlin/dataframe unit tests.
 
 Execute `run_docker.sh` (with docker installed)
 or `run_native.sh` (with sudo, cmake and g++ installed, software will be installed to your local system — execute `clean_native.sh` to remove)
-to build and execute the example.
+to build and execute the example. If everything is OK, generated examples should appear in directories `generated/docker` and `generated/native`,
+according to execution way.

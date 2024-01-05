@@ -15,4 +15,7 @@ pushd build
 cmake .. && make -j$(nproc) && sudo make install
 popd
 
+mkdir -p generated/native
+pushd generated/native
 arrow_examples
+popd
