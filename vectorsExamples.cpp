@@ -255,4 +255,16 @@ arrow::Result<std::shared_ptr<arrow::Time64Builder>> getTime64SequenceBuilder(lo
     return builder;
 }
 
+/*
+ * Generate Null sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::NullBuilder>> getNullSequenceBuilder(long size) {
+    std::shared_ptr<arrow::NullBuilder> builder = std::make_shared<arrow::NullBuilder>();
+
+    for (long i = 0; i < size; i++) {
+        ARROW_RETURN_NOT_OK(builder->AppendNull());
+    }
+    return builder;
+}
+
 } //end dataframe_example

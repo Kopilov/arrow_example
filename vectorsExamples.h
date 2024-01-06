@@ -101,4 +101,9 @@ arrow::Result<std::shared_ptr<arrow::Time32Builder>> getTime32SequenceBuilder(lo
  */
 arrow::Result<std::shared_ptr<arrow::Time64Builder>> getTime64SequenceBuilder(long size, bool withNulls, arrow::TimeUnit::type unit);
     
+/*
+ * Generate Null sequence builder
+ */
+arrow::Result<std::shared_ptr<arrow::NullBuilder>> getNullSequenceBuilder(long size);
+
 } //end dataframe_example

@@ -54,6 +54,8 @@ std::shared_ptr<arrow::RecordBatch> createDemoRecordBatch(long size, bool nullab
     addExample("time64_micro", [size, withNulls](){return getTime64SequenceBuilder(size, withNulls, arrow::TimeUnit::MICRO);}, nullable, fields, data);
     addExample("time64_nano", [size, withNulls](){return getTime64SequenceBuilder(size, withNulls, arrow::TimeUnit::NANO);}, nullable, fields, data);
 
+    if (withNulls) addExample("nulls", [size](){return getNullSequenceBuilder(size);}, nullable, fields, data);
+
     std::shared_ptr<arrow::RecordBatch> recordBatch = arrow::RecordBatch::Make(arrow::schema(fields), size, data);
     return recordBatch;
 }
